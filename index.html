@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<title>ニコカラオケ</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="js/jquery.xdomainajax.js"></script>
+		<script src="js/jquery.sidr.min.js"></script>
+		<script src="js/script.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="./css/html5-doctor-reset-stylesheet.min.css">
+		<link rel="stylesheet" type="text/css" href="./css/jquery.sidr.dark.css">
+		<link rel="stylesheet" type="text/css" href="./css/style.css">
+	</head>
+	<body class="base">
+		<header id="header">
+			<div class="title_area">
+				<span class="title">ニコカラオケ</span>
+			</div>
+			<div class="movie_title_area">
+				<span class="movie_title"></span>
+			</div>
+		</header>
+
+		<div id="main">
+			<div id="player_area">
+				<div id="player" style="width: 700px; height: 400px;"></div>
+				<div id="player_components" class="display-none">
+						<!-- <a id="play_record"><img src="./images/SVG/microphone48.svg" draggable="false" style="width: 29px;"> -->
+						<img src="/images/SVG/play.svg" id="player_start" class="component" draggable="false">
+							<!-- img src="/images/SVG/circle14.svg" draggable="false"> -->
+						<img src="/images/SVG/pause.svg"  id="player_stop" class="component" draggable="false">
+						<img src="/images/SVG/previous.svg" id="player_head" class="component" draggable="false">
+
+						<a href="javascript:void(0);" id="player_volume" class="component">
+							<img src="/images/SVG/volume-mute.svg" class="display-none" draggable="false">
+							<img src="/images/SVG/volume-medium.svg" draggable="false">
+						</a>
+
+						<input type="range" id="volume_range" style="vertical-align: text-top;" />
+
+						<a href="javascript:void(0);" id="player_repeat" class="component">
+							<img src="/images/SVG/right57.svg" width="32px" height="32px" draggable="false">
+							<img src="/images/SVG/loop.svg" class=" display-none" draggable="false">
+						</a>
+
+						<a href="javascript:void(0);" id="player_comment" class="component">
+							<img src="/images/SVG/speech22.svg" width="32px" height="32px" class="display-none" draggable="false">
+							<img src="/images/SVG/rectangular12.svg" width="32px" height="32px" draggable="false">
+						</a>
+						<img src="./images/SVG/star129.svg" id="favorite_add_current" class="component" width="35px" height="35px" draggable="false">
+
+				</div>
+			</div>
+
+			<div class="camera">
+				<audio id="streamAudio" controls autoplay class="display-none"></audio>
+			</div>
+
+			<div class="karaoke" style="width: 710px; margin: 0 auto;">
+				<div id="recording_components" class="display-none">
+					<button id="start">録音開始</button>
+					<button id="pause">録音一時停止</button>
+					<button id="end">録音終了</button>
+					<button id="mute">音声ミュート</button>
+					<!-- <button id="video_non_display">カメラを非表示にする</button> -->
+				</div>
+			</div>
+
+			<!-- SEARCH -->
+			<div id="search-input" style="clear: both;">
+				<h2>SEARCH</h2>
+				<div style="margin: 20px 45px; height:65px ">
+						<input type="text" id="nico_url" class="input-text float-left" value="" placeholder="検索したいキーワード" tabindex="1">
+						<!-- <button id="createPlayer">動画作成</button> -->
+						<!-- <button id="store">リストに加える</button> -->
+						<!-- <button id="search">動画を取得する</button> -->
+						<a id="search" class="float-left component margin-left5" tabindex="2"><img src="/images/SVG/search8.svg" width="32px" height="40px" draggable="false"></a>
+						<a id="addition_search" class="component margin-left5" tabindex="3"><img src="/images/SVG/plus32.svg" height="40px" width="40px" draggable="false"></a>
+				</div>
+				<div class="display-none addition_search_area">
+					<table>
+						<tr>
+							<td colspan="2">
+								<input type="checkbox" id="search_add_nicokara" class="css-checkbox">
+								<label for="search_add_nicokara" class="css-label">検索条件に「ニコカラ」を含める</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								並び順
+							</td>
+							<td>
+								<div style="text-align: right;">
+									<div class="search_select inline-block">
+										<select id="search_order_kind" style="width: 140px">
+											<!-- <option value="_hot">人気が高い順</option> -->
+											<option value="last_comment_time">コメント日時</option>
+											<option value="view_counter" selected>再生数</option>
+											<option value="comment_counter">コメント数</option>
+											<option value="mylist_counter">マイリスト数</option>
+											<option value="upload_time">投稿日時</option>
+											<option value="length_seconds">再生時間</option>
+										</select>
+									</div>
+
+									<div class="search_select inline-block">
+										<select id="search_order" style="width: 100px">
+											<option value="asc">昇順</option>
+											<option value="desc" selected>降順</option>
+										</select>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								再生時間
+							</td>
+							<td>
+								<div class="search_select">
+									<select id="search_time" style="width: 140px">
+										<option value="" selected>指定なし</option>
+										<option value="">短い(5分以内)</option>
+										<option value="">長い(20分以上)</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<!-- SEARCH RESULT -->
+			<div id="search_result" class="movie-contents-area display-none">
+				<h2>SEARCH RESULT</h2>
+				<ul id="search_result_videos"></ul>
+			</div>
+
+			<!-- RANKING -->
+			<div id="ranking_contents" class="movie-contents-area">
+				<h2>RANKING</h2>
+
+				<ul class="clearfix ranking_component_area">
+					<li class="ranking_component">
+						<div class="ranking_select">
+						<select class="ranking_type" style="width: 120px">
+							<option value="fav" selected>総合</option>
+							<option value="view">再生</option>
+							<option value="res">コメント</option>
+							<option value="mylist">マイリスト</option>
+						</select>
+						</div>
+					</li>
+					<li class="ranking_component">
+						<div class="ranking_select">
+							<select class="ranking_span" style="width: 100px">
+								<option value="hourly" selected>毎時</option>
+								<option value="daily">24時間</option>
+								<option value="weekly">週間</option>
+								<option value="monthly">月間</option>
+								<option value="total">合計</option>
+							</select>
+						</div>
+					</li>
+					<li class="ranking_component">
+						<div class="ranking_select">
+							<select class="ranking_genre" style="width: 180px">
+								<option value="music" selected>音楽</option>
+								<option value="vocaloid">VOCALOID</option>
+								<option value="sing">歌ってみた</option>
+								<option value="anime">アニメ</option>
+								<option value="game">ゲーム</option>
+								<option value="dance">踊ってみた</option>
+								<option value="play">演奏してみた</option>
+								<option value="toho">東方</option>
+								<option value="imas">アイマス</option>
+								<option value="nicoindies">ニコニコインディーズ</option>
+							</select>
+						</div>
+					</li>
+					<li class="ranking_component" style="float: right;">
+						<button type="button" id="ranking">ランキングを取得</button>
+					</li>
+				</ul>
+				<div style="width: 720px;">
+					<ol id="ranking_result_videos" class="display-none" style="clear: both;"></ol>
+				</div>
+			</div>
+
+			<!-- FAVORITE -->
+			<div id="favorite_area" class="movie-contents-area">
+				<h2>FAVORITE</h2>
+				<p id="favorite_title" style="text-align: center;"><span>お気に入りが一曲もありません</span></p>
+				<ul id="favorite_videos"></ul>
+			</div>
+
+			<!-- UPLOAD -->
+			<div id="file_import_area">
+				<h2>UPLOAD</h2>
+				<p id="file_import">
+					<span>MP3などの音声ファイルを読みこんでカラオケをすることもできます</span>
+				</p>
+				<ul id="file_import_list">
+				</ul>
+			</div>
+
+			<!-- DOWNLOAD -->
+			<div id="download_area" class="movie-contents-area">
+				<h2>DOWNLOAD</h2>
+				<ul>
+					<li style="text-align: center;">
+						<span>録音した音声をDOWNLOADできます</span>
+						<audio id="recordAudio" controls class="display-none"></audio>
+					</li>
+					<li>
+						<ul id="download_list"></ul>
+					</li>
+				</ul>
+			</div>
+
+			<!-- div.main --></div>
+
+			<aside>
+				<ul>
+					<a href="#search-input"><li>SEARCH</li></a>
+					<a href="#ranking_contents"><li>RANKING</li></a>
+					<a href="#favorite_area"><li>FAVORITE</li></a>
+					<a href="#file_import_area"><li>UPLOAD</li></a>
+				</ul>
+			</aside>
+
+
+
+		<footer>
+			<div style="position: relative; top: 10%; ">
+				<div style="width: 980px; height: 250px; margin: 0 auto; padding: 15px;">
+					<div class="float-left" style="width: 320px;">
+						<h3>Menu</h3>
+						<ul class="footer_menu_list" style="margin-left: 40px;">
+							<li>
+								SEARCH
+							</li>
+							<li>
+								ニコニコ動画から動画を検索
+							</li>
+							<li>
+								RANKING
+							</li>
+							<li>
+								ニコニコ動画のランキングを表示
+							</li>
+							<li>
+								FAVORITE
+							</li>
+							<li>
+								お気に入りに登録した動画を表示
+							</li>
+							<li>
+								UPLOAD
+							</li>
+							<li>
+								ファイルをアップロード
+							</li>
+						</ul>
+					</div>
+
+					<div class="float-left draggable_true" style="width: 320px; margin: 0 10px;">
+						<h3>Contact</h3>
+						<ul class="footer_contact_list">
+							<li>
+								<img src="/images/SVG/social71.svg" alt="twitter" width="40px" height="40px" draggable="false">
+							</li>
+							<li>
+								<a href="https://twitter.com/kuriya0909">kuriya0909</a>
+							</li>
+							<li>
+								<img src="/images/SVG/mail8.svg" alt="gmail" width="52px" height="52px" draggable="false">
+							</li>
+							<li>
+								<a href="mailto:kuriya0909@gmail.com">kuriya0909@gmail.com</a>
+							</li>
+						</ul>
+					</div>
+
+					<div  class="float-left" style="width: 320px;">
+						<h3>Warning</h3>
+						<div style="text-align: center; margin-bottom: 10px;">
+							<img src="/images/SVG/exclamation3.svg" alt="warning" width="40px" height="40px" draggable="false">
+						</div>
+						<div>
+							<span style="font-size: 15px; line-height: 27px;">
+								このニコカラオケと言うアプリケーションは最新のWEB技術を使用しているためInternetExplorer等では正常に動作いたしません。
+								全機能を使用したい場合はGoogleChromeをインストールすることを推奨致します。
+							</span>
+						</div>
+					</div>
+				</div>
+				<div style="text-align: center; height: 100px; line-height: 100px;" class="clearfix">
+					<span>Copyright&copy; 2014 nicokaraoke.webcrow.jp All Rights Reserved.</span>
+				</div>
+			</div>
+		</footer>
+
+
+
+
+		<!-- モーダルウィンドウ(背景) -->
+		<div id="glayLayer"></div>
+
+		<!-- 初期説明画面(モーダルウィンドウ) -->
+		<div id="init"></div>
+
+		<!-- ファイルアップロード画面(モーダルウィンドウ) -->
+		<div id="drag_drop">
+			<div id="drop_file_title" style="height: 200px; line-height: 200px; font-size: 18px;">
+				<span>ファイルをドラッグ&amp;ドロップしてください</span>
+			</div>
+			<div id="drop_file_area" class="display-none">
+				<ul>
+					<!-- <li><input type="file" id="audio_file_input" /></li> -->
+					<li id="audio_file_title"></li>
+					<!-- <li id="audio_file_type"></li>
+					<li id="audio_file_size"></li> -->
+				</ul>
+				<ul style="margin: 50px;">
+					<button id="add_audio_file">追加する</button>
+					<button id="remove_audio_file">削除する</button>
+				</ul>
+			</div>
+			<audio id="tmp_audio" class="display-none"></audio>
+		</div>
+
+		<!-- GoogleChrome推奨画面(モーダルウィンドウ) -->
+		<div class="browser_error">
+			このアプリは最新のWeb技術を使用しているためGoogleChromeを推奨しています。
+			他のブラウザをご使用していて機能を正常に使用したい場合はGoogleChromeをインストールしてください。
+		</div>
+
+
+
+		<div id="menu" class="component">
+			<a href="#right-menu">
+				<img src="/images/SVG/menu1.svg" alt="メニューを表示する" width="50" height="50" draggable="false" style="display: inline; opacity: 1;"></a>
+		</div>
+
+		<!-- マイクのアイコンについてのツールチップ -->
+		<div id="entry_mic">
+			<a href="javascript:void(0)">
+				<img src="/images/SVG/microphone57.svg" alt="マイクを読み込む" width="65" height="65" draggable="false" style="display: inline; opacity: 1;">
+			</a>
+			<div class="arrow_box">マイクを読み込んでカラオケを始めよう</div>
+		</div>
+
+		<div id="back-top" class="component display-none">
+			<a href="#header">
+				<img src="/images/SVG/arrows6.svg" alt="ページトップへ戻る" width="52" height="52" draggable="false" style="display: inline; opacity: 1;"></a>
+		</div>
+
+		<div id="tooltip"></div>
+
+		<div id="right-menu">
+			<ul id="sideMenu">
+				<a id="close_menu" href="javascript:void(0);"><li style="background: url('./images/png/027.png') no-repeat; background-size: 50px; background-position: center; height: 65px;"></li></a>
+				<li>
+					<ul id="music_list"></ul>
+				</li>
+			</ul>
+		</div>
+		<script src="js/recorder.js"></script>
+
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-52898502-1', 'auto');
+			ga('send', 'pageview');
+		</script>
+	</body>
+</html>
+

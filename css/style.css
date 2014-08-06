@@ -1,0 +1,1002 @@
+@charset "utf-8";
+
+@font-face {
+	font-family: "titleFont";
+	src: url("GN-KillGothic.woff") format('woff');
+}
+
+@font-face {
+	font-family: "bodyFont";
+	src: url("SmartFontUI.woff") format('woff');
+}
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes tada {
+    0% {-webkit-transform: scale(1);}
+    10%, 20% {-webkit-transform: scale(0.9) rotate(-3deg);}
+    30%, 50%, 70%, 90% {-webkit-transform: scale(1.1) rotate(3deg);}
+    40%, 60%, 80% {-webkit-transform: scale(1.1) rotate(-3deg);}
+    100% {-webkit-transform: scale(1) rotate(0);}
+}
+@keyframes tada {
+    0% {transform: scale(1);}
+    10%, 20% {transform: scale(0.9) rotate(-3deg);}
+    30%, 50%, 70%, 90% {transform: scale(1.1) rotate(3deg);}
+    40%, 60%, 80% {transform: scale(1.1) rotate(-3deg);}
+    100% {transform: scale(1) rotate(0);}
+}
+.tada {
+    -webkit-animation-name: tada;
+    animation-name: tada;
+    animation-iteration-count: 2;
+	-webkit-animation-iteration-count: 2;
+}
+
+
+
+@-webkit-keyframes fadeInLeftBig {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(-2000px);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+@keyframes fadeInLeftBig {
+    0% {
+        opacity: 0;
+        transform: translateX(-2000px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.fadeInLeftBig {
+    -webkit-animation-name: fadeInLeftBig;
+    animation-name: fadeInLeftBig;
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+}
+
+
+
+
+@-webkit-keyframes fadeOutLeftBig {
+    0% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translateX(-2000px);
+    }
+}
+@keyframes fadeOutLeftBig {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-2000px);
+    }
+}
+.fadeOutLeftBig {
+    -webkit-animation-name: fadeOutLeftBig;
+    animation-name: fadeOutLeftBig;
+}
+
+
+
+
+
+
+.title_area {
+	text-align: left;
+	width: 210px;
+	padding: 15px 40px;
+}
+
+.title {
+	font-family: "titleFont";
+	font-size: 40px;
+}
+
+.movie_title_area {
+	position: absolute;
+	top: 0px;
+	left: 25%;
+	width: 50%;
+	padding: 20px;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.movie_title {
+	font-size: 20px;
+}
+
+body , html { /*ページ全体*/
+	height: 100%;
+	font-family: "bodyFont";
+}
+
+audio {
+	width: 500px;
+}
+
+#player {
+	margin: 0 auto;
+	border: 30px solid #333;
+	/*border-radius: 5px;*/
+	padding-bottom: 40px;
+/*		position: relative*/;
+}
+
+
+/*		#player:after, .arrow_box:before {
+	bottom: 106.5%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+#player:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #88b7d5;
+	border-width: 30px;
+	margin-left: -30px;
+}
+#player:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-bottom-color: #c2e1f5;
+	border-width: 36px;
+	margin-left: -36px;
+}*/
+
+
+
+
+#player_components {
+	margin: 0 auto;
+	width: 700px;
+	position: relative;
+	top: -68px;
+}
+
+#player_components > *{
+	margin: 0 18px;
+}
+
+.display-none {
+	display: none;
+}
+
+ol, ul {
+	list-style-type: none;
+}
+
+li {
+	word-wrap: break-word;
+}
+
+ol {
+	counter-reset: ranking_number;
+}
+
+ol > li > div > span,
+.movie-contents-area li div span {
+	display: block;
+	line-height: 20px;
+}
+
+.content_option {
+	color: gray;
+	font-size: 14px;
+}
+
+/*ナビゲーション*/
+header {
+	margin: 0px 0px 30px 0px;
+	width: 100%;
+	height: 70px;
+	background-color: #FACC2E;
+}
+
+img { border: none; }
+
+a,
+a:visited {
+	text-decoration: none;
+	color: black;
+	outline: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	height: 95%;
+}
+
+tr {
+	height: 80px;
+}
+
+td {
+	text-align: center;
+	vertical-align: middle;
+	font-size: 20px;
+}
+
+input[type=checkbox].css-checkbox {
+	display:none;
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+	padding-left:35px;
+	height:26px;
+	display:inline-block;
+	line-height:26px;
+	background-repeat:no-repeat;
+	background-position: 0 0;
+	font-size:20px;
+	vertical-align:middle;
+	cursor:pointer;
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+	background-position: 0 -26px;
+}
+
+label.css-label {
+	background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_f366728febe2692890212b77283536f5.png);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.movie-contents-area {
+	width: 750px;
+	margin: 20px auto 100px;
+	/*padding: 15px;   ここがsearch_resultやrankingのh2がずれる理由 */
+	/*border-radius: 5px;*/
+	background-color: #FACC2E;
+	padding-bottom: 20px;
+}
+
+.movie-contents-area img {
+	width: 130px;
+	height: 100px;
+}
+
+.clearfix {
+	*zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after {
+	display: table;
+	content: "";
+	line-height: 0;
+}
+
+.clearfix:after {
+	clear: both;
+}
+/*ナビゲーション終わり*/
+
+/*エラー*/
+.browser_error{
+	background:#ff6699;
+	text-align: center;
+	width: 50%;
+	top: 25%;
+	left: 25%;
+	height: 30%;
+	margin: 0 auto;
+	padding: 30px;
+	position: fixed;
+	display:none;
+	font-size: 25px;
+	line-height: 35px;
+	z-index: 9999;
+}
+
+/* プレイヤーエリア */
+#player_area {
+	/*margin: 100px 0 auto;*/
+	margin: 0px 0 auto;
+}
+
+/*検索エリア*/
+#search-input {
+	width: 600px;
+	margin: 50px auto;
+	background-color: #FACC2E;
+	/*border-radius: 5px;*/
+}
+
+.addition_search_area {
+	margin: 0 95px;
+	height: 300px;
+	width: 400px;
+	padding-bottom: 30px;
+}
+
+
+#favorite_videos li:before {
+	content: "";
+	width: 43px;
+	height: 43px;
+	background-size: cover;
+}
+
+/* 閉じるボタンを真ん中に配置するために自身を覆っているDIVタグの高さだけのpxを指定している */
+/*#favorite_videos li div:after {
+	content: url("./images/SVG/cancel4.svg");
+	background-image: ;
+	padding: 8px;
+	float: right;
+	min-width: 30px;
+	min-height: 30px;
+	line-height: 100px;
+} */
+
+.favorite_add,
+.favorite_close_area img {
+	position: relative;
+	z-index: 1;
+	-webkit-transition: .3s;
+	-moz-transition: .3s;
+	transition: .3s;
+}
+
+.favorite_add:hover,
+.favorite_close_area img:hover {
+	-webkit-transform: scale(1.4);
+	-moz-transform: scale(1.4);
+	transform: scale(1.4);
+}
+
+.favorite_close_area,
+.video_favorite_area {
+	height: 100px;
+	width: 50px;
+	line-height: 100px;
+	float: right;
+}
+
+.favorite_close_area img {
+	width: 25px !important;
+	height: 25px !important;
+}
+
+.video_favorite_area {
+	text-align: center;
+}
+
+.video_favorite_area img {
+	width: 30px;
+	height: 30px;
+}
+
+
+/*予約リスト*/
+#music_list {
+	overflow-y: auto;
+	width: 240px;
+	height: 500px;
+	overflow: auto;
+	background-color: #333;
+}
+
+#sideMenu {
+	overflow-y: hidden;
+}
+
+#music_list li {
+	width: 230px;
+	height: 110px;
+	list-style-position: inside;
+}
+
+#music_list span {
+	font-family: "bodyFont";
+	font-size: 15px;
+	line-height: 15px;
+	padding: 8px;
+	color: #FFFFFF;
+}
+
+ol#ranking_result_videos li:before {
+	counter-increment: ranking_number;
+	content: counter(ranking_number);
+	font-family: impact;
+	font-size: 30px;
+	float: left;
+	padding: 30px 15px 0px 0px;
+	min-width: 43px;
+	text-align: center;
+}
+
+
+.margin-center {
+	margin: 10px auto;
+}
+
+.input-text {
+	padding: 10px;
+	width: 400px;
+	font-size: 20px;
+	text-align: center;
+	height: 20px;
+	/*border-radius: 5px;*/
+}
+
+.base {
+	margin: 0;
+	padding: 0;
+	/*background-color: #F4FF3D;*/
+	background-color: #F5F5DC;
+	font-size: 15px;
+	-ms-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+#file_import_area {
+	margin: 100px auto;
+	width: 750px;
+	background-color: #FACC2E;
+	padding-bottom: 20px;
+}
+
+#file_import {
+	cursor: pointer;
+	text-align: center;
+	background-color: #FAFAD2;
+	height: 80px;
+	font-size: 18px;
+	line-height: 80px;
+	width: 650px;
+	margin: 0px auto;
+}
+
+#file_import_list {
+	margin-top: 20px;
+	display: none;
+}
+
+.search-result-movie,
+.ranking-result-movie,
+.import_file {
+	/*width: 650px;*/
+	margin: 0px 15px;
+	width: 700px;
+	height: 100px;
+	padding: 10px;
+	background-color: #F3F781;
+	cursor: pointer;
+	/*border-radius: 5px;*/
+}
+
+.search-result-movie:nth-child(even),
+.ranking-result-movie:nth-child(even),
+.import_file:nth-child(even) {
+	background-color: #FAFAD2;
+}
+
+.search-result-movie:hover,
+.ranking-result-movie:hover,
+.import_file:hover {
+	background-color: #E1541F;
+}
+
+
+.video-content-area,
+.favorite-content-area,
+.ranking-content-area {
+	width: 450px;
+	height: 100px;
+	margin-left: 20px;
+}
+
+.ranking-content-area {
+	width: 400px;
+}
+
+.import_file {
+	cursor: auto;
+}
+
+.import_file_content_area{
+	width: 600px;
+	height: 100%;
+	line-height: 24px;
+	display: inline-block;
+}
+
+.import_file_content_area p {
+	margin: 5px;
+	width: 590px;
+	height: 30px;
+	line-height: 30px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.import_file_karaoke_area {
+	width: 80px;
+	height: 100%;
+	display: inline-block;
+	text-align: right;
+}
+
+.float-left {
+	display: block;
+	float: left;
+}
+
+#menu {
+	position: fixed;
+	/*top: 70px;
+	left: 50px;*/
+
+	top: 10px;
+	left: auto;
+	right: 83px;
+	z-index: 9999;
+	curosor: pointer;
+}
+
+#entry_mic {
+	position: fixed;
+	top: 100px;
+	right: -2.3%;
+	z-index: 1;
+	cursor: pointer;
+}
+
+.entry_mic_on_menu {
+	right: 280px !important;
+	left: auto !important;
+}
+
+
+.arrow_box {
+	position: relative;
+	background: #C92818;
+	width: 140px;
+	left: -40%;
+	line-height: 28px;
+	color: #FFFFFF;
+	padding: 15px;
+}
+.arrow_box:after {
+	bottom: 100%;
+	/*left: 50%;*/
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #C92818;
+	border-width: 15px;
+	margin-left: -70px;
+}
+
+
+#back-top {
+	position: fixed;
+	bottom: 30px;
+	left: 50px;
+	z-index: 9999;
+	cursor: pointer;
+	/*display: none;*/
+}
+
+.back-top_on_menu {
+	right: 350px !important;
+	left: auto !important;
+}
+
+#scroll_menu {
+	position: fixed;
+	bottom: 85px;
+	left: 48px;
+	z-index: 9999;
+	cursor: pointer;
+	/*display: none;*/
+}
+
+.scroll_menu_on_menu {
+	right: 340px !important;
+	left: auto !important;
+}
+
+.scroll_ranking_on_menu {
+	right: 275px !important;
+	left: auto !important;
+}
+
+.scroll_search_on_menu {
+	right: 270px !important;
+	left: auto !important;
+}
+
+#tooltip {
+	background: #000000;
+	width: 200px;
+	bottom: 105px;
+	left: 20px;
+	z-index: 100;
+	position: fixed;
+	display: none;
+	color: #FFFFFF;
+	padding: 10px;
+	font-size: 16px;
+	line-height: 18px;
+	opacity: 0.8;
+}
+
+h2 {
+	width: 100%;
+	padding: 10px 0px;
+	margin-bottom: 15px;
+	background-color: #E1541F;
+	color: white;
+	text-indent: 1.5em;
+	letter-spacing: 0.2em;
+	cursor: default;
+	/*border-radius: 5px;*/
+}
+
+.h2_margin {
+	margin-top: -15px;
+	margin-left: -15px;
+}
+
+h2:first-letter {
+	font-size: 25px;
+	color: #FFA500;
+}
+
+#main {
+	width: 100%;
+	position: relative;
+	height: auto !important;     /* IE6対策 */
+	height: 100%;                    /* IE6対策 */
+	min-heigth: 100%;
+}
+
+.music {
+	cursor: pointer;
+	overflow: hidden;
+	word-wrap: break-word;
+	/*white-space: nowrap;*/
+	/*text-overflow: ellipsis;*/
+}
+
+.list_music_img {
+	width: 85px;
+	height: 85px;
+	padding: 5px;
+	float: left;
+	cursor: pointer;
+}
+
+ /*ここをホバーした時はコンポーネントを大きくし、かつ、ツールチップに機能の説明を簡潔にしたものを表示すること*/
+.component {
+	cursor: pointer;
+}
+
+.more {
+	line-height: 100px;
+	text-align: center;
+	font-size: 25px;
+}
+
+#main {
+    width: 100%;
+    position: relative;
+    height: auto !important;
+    height: 100%;
+    min-height: 100%;
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 450px;
+    background-color: #FACC2E;
+}
+
+.draggable_true {
+	-ms-user-select: text !important;
+	-webkit-user-select: text !important;
+	user-select: text !important;
+}
+
+#glayLayer{
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    background:black;
+    opacity: 0.85;
+    display: none;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.ranking_component_area {
+	width: 700px;
+	margin: 20px auto;
+}
+
+.ranking_component {
+	display: block;
+	float: left;
+}
+
+button {
+	font-family: "bodyFont";
+	font-size: 13px;
+	color: #ffffff;
+	padding: 10px 20px;
+	/*margin-top: 20px;*/
+	width: 170px;
+	height: 40px;
+	background: #e1531f;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+	border: 0px solid #000000;
+	cursor: pointer;
+}
+
+select{
+	font-family: "bodyFont";
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    height: 40px;
+    /*padding: 10px 20px;*/
+    line-height: 30px;
+    font-size: 13px;
+    text-indent: 15px;
+    color: #FFFFFF;
+    background:#e1531f;
+    border: none;
+    cursor: pointer;
+    border-radius: 0px;
+}
+
+.ranking_select:after {
+	content: "▼";
+	position: relative;
+	left: -30px;
+	color: #FFFFFF;
+	cursor: pointer;
+}
+
+.search_select:after {
+	content: "▼";
+	position: relative;
+	left: -35px;
+	color: #FFFFFF;
+	cursor: pointer;
+	font-size: 15px;
+}
+
+h3 {
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+	margin: 0px 15px 15px 15px;
+}
+
+aside {
+	position: fixed;
+	top: 100px;
+	left: 30px;
+}
+
+aside > ul li {
+	height: 30px;
+	width: 140px;
+	padding: 15px;
+	font-family: "titleFont";
+	font-size: 14px;
+	line-height: 30px;
+	letter-spacing: 0.15em;
+	text-align: left;
+	background-color: #FACC2E;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+	background-image: url("/images/SVG/arrow89.svg");
+	background-repeat: no-repeat;
+	background-position: 93%;
+	background-size: 13%;
+}
+
+aside > ul li:hover {
+	background-color: #E1541F;
+}
+
+.droped_area {
+	height: 300px;
+	display: table-cell !important;
+	vertical-align: middle;
+}
+
+#drag_drop {
+	width: 750px;
+	height: 200px;
+	text-align: center;
+	margin: 0 auto;
+	padding: 30px;
+	position: fixed;
+	top: 25%;
+	left: 20%;
+	z-index: 9999;
+	background-color: #FACC2E;
+	display: none;
+}
+
+#drag_drop > ul {
+	padding: 20px;
+}
+
+#drag_drop > ul > li {
+	height: 35px;
+	width: 450px;
+	padding: 10px;
+	margin: 0 auto;
+}
+
+#audio_file_title {
+	font-size: 20px;
+}
+
+
+.footer_menu_list > li:nth-child(odd) {
+	font-size: 15px;
+	line-height: 15px;
+}
+
+.footer_menu_list > li:nth-child(even) {
+	font-size: 15px;
+	line-height: 17px;
+	text-indent: 2em;
+	margin-bottom: 20px;
+}
+
+.footer_contact_list > li {
+	text-align: center;
+	line-height: 20px
+}
+
+.footer_contact_list > li:nth-child(even) {
+	margin-bottom: 20px;
+}
+
+input[type="range"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: #eee;
+	border:0;
+	height:3px;
+	margin:3px 0;
+	box-shadow:1px 1px 0px #666 inset;
+}
+input[type="range"]::-webkit-slider-thumb{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: #666;
+	text-align:center;
+	width: 20px;
+	height: 20px;
+	border:1px solid transparent;
+	border-radius:20px;
+	cursor:pointer;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+input[type="range"]::-webkit-slider-thumb:before {
+	content:"";
+	display:inline-block;
+	background-color: #333;
+	width: 10px;
+	height: 10px;
+	border:1px solid transparent;
+	border-radius:10px;
+	margin:4px auto 0;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+	background-color: #777;
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+	background-color: #66c;
+}
+input[type="range"]:active::-webkit-slider-thumb:before {
+	background-color: #339;
+}
+input[type="range"]:focus {
+	outline:none;
+}
+
+
+::-webkit-scrollbar {
+	width: 0px;
+	height: 0px;
+}
+
+ul#music_list::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+
+ul#music_list::-webkit-scrollbar-track-piece  {
+	background-color: #F3F781;
+}
+
+ul#music_list::-webkit-scrollbar-thumb:vertical {
+	height: 30px;
+	background-color: #E1541F;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.margin-left5 {
+	margin-left: 5px;
+}
+
+/*		.video_time {
+	display: block;
+	background-color: black;
+	position: relative;
+	left: -5%;
+	bottom: -75px;
+	color: white;
+	font-weight: bold;
+}*/
+
+/*		.base background-color
+#FFF8DC
+#FFFACD
+#FFE4C4*/
