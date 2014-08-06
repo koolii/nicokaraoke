@@ -993,7 +993,7 @@
 
 	$('img').error(function(){
 		setTimeout(function() {
-	        $(this).attr({src:'images/SVG/error6.svg',alt:'画像が見つかりません'});
+	        $(this).attr({src:'./images/SVG/error6.svg',alt:'画像が見つかりません'});
 	    }, 0);
      });
 
@@ -1080,7 +1080,7 @@
 		$("<div>").addClass("import_file_content_area").append("<p><span>" + title + "</span></p>")
 			.append("<audio class='tese' src='" + $("#tmp_audio").attr("src") + "' controls </audio>").appendTo($li);
 
-		$("<div>").addClass("import_file_karaoke_area").append('<img src="/images/SVG/microphone57.svg" alt="マイクを読み込む" class="test" width="65" height="65" draggable="false">').appendTo($li);
+		$("<div>").addClass("import_file_karaoke_area").append('<img src="./images/SVG/microphone57.svg" alt="マイクを読み込む" class="test" width="65" height="65" draggable="false">').appendTo($li);
 
 		$li.appendTo($ul);
 
@@ -1648,7 +1648,7 @@
 	};
 
 	function ajaxRequest(options) {
-		var $img = $backTop.find("img").attr("src", "/images/89.GIF");
+		var $img = $backTop.find("img").attr("src", "./images/89.GIF");
 
 		var ajaxDefaults = {
 			type: "GET",
@@ -1673,7 +1673,7 @@
 			tooltip("動画を取得できませんでした。時間をおいて改めて検索してください", true, "#C92818");
 		}).complete(function() {
 			$img.attr({
-				"src": "images/SVG/arrows6.svg",
+				"src": "./images/SVG/arrows6.svg",
 				"height": "52px"
 			});
 		});
